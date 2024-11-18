@@ -4,7 +4,7 @@ import numpy as np
 
 def main():
     pcd = o3d.io.read_point_cloud("../pcds/cylinder_matrix_defect_fh_ar.pcd")
-
+    #this is test line 
     # example code for aligning the pcds PC with the z-axis
     # Compute the principal axis using PCA
     points = np.asarray(pcd.points)
