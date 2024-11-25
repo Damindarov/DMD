@@ -7,6 +7,10 @@ sudo apt install cmake libgdcm-tools libboost-all-dev libvtkgdcm-cil libvtkgdcm-
 # ./emsdk activate 3.1.48
 # source ./emsdk_env.sh
 
+sudo ln -s /usr/lib/cli/vtkgdcm-sharp-3.0/libvtkgdcmsharpglue.so /usr/lib/x86_64-linux-gnu/libvtkgdcmsharpglue.so
+sudo ln -s /usr/lib/python3 /usr/lib/python
+sudo ln -s /usr/lib/python3/dist-packages/vtkgdcmPython.*.so /usr/lib/python/dist-packages/vtkgdcmPython.so
+
 git config --global http.postBuffer 524288000
 git clone --recurse-submodules https://github.com/MeshInspector/MeshLib.git && cd MeshLib
 

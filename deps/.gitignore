@@ -1,0 +1,3 @@
+autobuild.sh build
+.deb
+*.deb
