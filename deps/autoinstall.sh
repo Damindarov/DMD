@@ -17,13 +17,19 @@ fi
 
 rm -rf ${SUFFIX}_package && mkdir ${SUFFIX}_package && cd ${SUFFIX}_package
 
+echo "Download of deb package started"
+
 curl -s https://api.github.com/repos/MeshInspector/MeshLib/releases/latest \
 | grep "browser_download_url\".*${SUFFIX}-dev.deb" \
 | cut -d : -f 2,3 \
 | tr -d \" \
 | wget -qi -
 
+echo "Package $(ls) downloaded. Installation started"
+
 sudo apt install ./*.deb -y
+
+echo "Package $(ls) installed. Test started"
 
 cd ../test/simple_application/
 rm -rf build
