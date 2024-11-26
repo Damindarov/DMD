@@ -4,10 +4,10 @@ sudo apt update
 
 UBUNTU_VERSION=$(lsb_release -r | awk '{print $2}')
 
-if [ ${UBUNTU_VERSION}=="20.04" ]; then
+if [[ "${UBUNTU_VERSION}" = "20.04" ]]; then
         echo "Your ubuntu is 20 ubuntu"
 	SUFFIX="ubuntu20"
-elif [ ${UBUNTU_VERSION}=="22.04" ]; then
+elif [[ "${UBUNTU_VERSION}" = "22.04" ]]; then
         echo "Your ubuntu is 22 ubuntu"
 	SUFFIX="ubuntu22"
 else
