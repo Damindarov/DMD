@@ -19,10 +19,20 @@ set(SOURCES1 MyPlugin.cpp)
 file(GLOB UI_JSON "*.ui.json")
 file(GLOB ITEMS_JSON "*.items.json")
 
+message("${UI_JSON}")
+message("${ITEMS_JSON}")
+
+
+set(MESHLIB_SHARE /usr/local/share/MeshLib)
+set(UI_JSON_DESTINATION ${MESHLIB_SHARE})
+set(ITEMS_JSON_DESTINATION ${MESHLIB_SHARE})
+set(RESOURCE_FOLDER "resource")
+set(RESOURCE_DESTINATION ${MESHLIB_SHARE})
+
 # copy these json files and resource folder to this runtime output directory "/usr/local/share/MeshLib"
-file(COPY ${UI_JSON} DESTINATION /usr/local/share/MeshLib)
-file(COPY ${ITEMS_JSON} DESTINATION /usr/local/share/MeshLib)
-file(COPY "resource" DESTINATION /usr/local/share/MeshLib)
+# file(COPY ${UI_JSON} DESTINATION /usr/local/share/MeshLib)
+# file(COPY ${ITEMS_JSON} DESTINATION /usr/local/share/MeshLib)
+# file(COPY "resource" DESTINATION /usr/local/share/MeshLib)
 
 add_library(${TARGET1} SHARED ${SOURCES1})
 
@@ -60,3 +70,12 @@ set(MR_MAIN_LIB_DIR /usr/local/lib/MeshLib)
 install(TARGETS ${TARGET1}
 		EXPORT ${TARGET1}
 		LIBRARY DESTINATION "${MR_MAIN_LIB_DIR}")
+
+install(FILES "${UI_JSON}"
+		DESTINATION ${UI_JSON_DESTINATION})
+
+install(FILES "${ITEMS_JSON}"
+		DESTINATION ${ITEMS_JSON_DESTINATION})
+
+install(DIRECTORY "${RESOURCE_FOLDER}"
+		DESTINATION ${RESOURCE_DESTINATION})
