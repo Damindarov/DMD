@@ -32,9 +32,9 @@ sudo apt install ./*.deb -y
 echo "Package $(ls) installed. Test started"
 
 cd ../test/simple_application/
-rm -rf build
+sudo rm -rf build
 mkdir build && cd build
-sudo cmake -DCMAKE_CXX_COMPILER=g++-10 ..
-sudo cmake --build .
+cmake ..
+cmake --build .
 sudo cmake --install .
 ./test

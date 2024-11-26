@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
+ cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -26,7 +26,7 @@ file(COPY "resource" DESTINATION /usr/local/share/MeshLib)
 
 add_library(${TARGET1} SHARED ${SOURCES1})
 
-target_include_directories(${TARGET1} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR})
+#target_include_directories(${TARGET1} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR})
 target_link_libraries(${TARGET1} PRIVATE
 	TBB::tbb
 	MeshLib::MRMesh
@@ -34,10 +34,12 @@ target_link_libraries(${TARGET1} PRIVATE
 	glad
 	glfw
 	imgui
-	jsoncpp
+	jsoncpp_lib
 	spdlog
 	)
 target_link_directories(${TARGET1} PUBLIC ${MESHLIB_THIRDPARTY_LIB_DIR})
+target_include_directories(${TARGET1} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR} ${JSON_INC_PATH})
+
 
 
 set(TARGET test)
@@ -48,7 +50,7 @@ set(SOURCES
 
 add_executable(${TARGET} ${SOURCES})
 target_compile_definitions(${TARGET} PRIVATE SPDLOG_FMT_EXTERNAL)
-target_include_directories(${TARGET} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR})
+target_include_directories(${TARGET} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR} ${JSON_INC_PATH})
 target_link_libraries(${TARGET} PRIVATE MeshLib::MRMesh MeshLib::MRViewer TBB::tbb fmt::fmt spdlog::spdlog ${TARGET1})  # link the example_plugin aswell
 target_link_directories(${TARGET} PUBLIC ${MESHLIB_THIRDPARTY_LIB_DIR})
 
