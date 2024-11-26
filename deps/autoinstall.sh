@@ -28,6 +28,7 @@ sudo apt install ./*.deb -y
 cd ../test/simple_application/
 rm -rf build
 mkdir build && cd build
-cmake ..
-cmake --build .
+sudo cmake -DCMAKE_CXX_COMPILER=g++-10 ..
+sudo cmake --build .
+sudo cmake --install .
 ./test

@@ -9,6 +9,37 @@ find_package(TBB REQUIRED)
 find_package(fmt REQUIRED)
 find_package(spdlog REQUIRED)
 
+
+find_package(jsoncpp REQUIRED)
+
+set(TARGET1 example_plugin)
+
+set(SOURCES1 MyPlugin.cpp)
+
+file(GLOB UI_JSON "*.ui.json")
+file(GLOB ITEMS_JSON "*.items.json")
+
+# copy these json files and resource folder to this runtime output directory "/usr/local/share/MeshLib"
+file(COPY ${UI_JSON} DESTINATION /usr/local/share/MeshLib)
+file(COPY ${ITEMS_JSON} DESTINATION /usr/local/share/MeshLib)
+file(COPY "resource" DESTINATION /usr/local/share/MeshLib)
+
+add_library(${TARGET1} SHARED ${SOURCES1})
+
+target_include_directories(${TARGET1} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR})
+target_link_libraries(${TARGET1} PRIVATE
+	TBB::tbb
+	MeshLib::MRMesh
+	MeshLib::MRViewer
+	glad
+	glfw
+	imgui
+	jsoncpp
+	spdlog
+	)
+target_link_directories(${TARGET1} PUBLIC ${MESHLIB_THIRDPARTY_LIB_DIR})
+
+
 set(TARGET test)
 
 set(SOURCES
@@ -18,6 +49,12 @@ set(SOURCES
 add_executable(${TARGET} ${SOURCES})
 target_compile_definitions(${TARGET} PRIVATE SPDLOG_FMT_EXTERNAL)
 target_include_directories(${TARGET} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR})
-target_link_libraries(${TARGET} PRIVATE MeshLib::MRMesh MeshLib::MRViewer TBB::tbb fmt::fmt spdlog::spdlog)
+target_link_libraries(${TARGET} PRIVATE MeshLib::MRMesh MeshLib::MRViewer TBB::tbb fmt::fmt spdlog::spdlog ${TARGET1})  # link the example_plugin aswell
 target_link_directories(${TARGET} PUBLIC ${MESHLIB_THIRDPARTY_LIB_DIR})
 
+set(MR_MAIN_LIB_DIR /usr/local/lib/MeshLib)
+
+
+install(TARGETS ${TARGET1}
+		EXPORT ${TARGET1}
+		LIBRARY DESTINATION "${MR_MAIN_LIB_DIR}")
