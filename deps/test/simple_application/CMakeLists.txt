@@ -14,7 +14,10 @@ find_package(jsoncpp REQUIRED)
 
 set(TARGET1 example_plugin)
 
-set(SOURCES1 MyPlugin.cpp)
+set(SOURCES1 
+	MyPlugin.cpp			MyPlugin.hpp
+	mytool.cpp				mytool.hpp
+	mystatetool.cpp 		mystatetool.hpp)
 
 file(GLOB UI_JSON "*.ui.json")
 file(GLOB ITEMS_JSON "*.items.json")

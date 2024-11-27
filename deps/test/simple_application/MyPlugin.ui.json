@@ -10,10 +10,10 @@
 					"Name": "Primal",
 					"List": [
 						{
-							"Name": "My Tool"
+							"Name": "My State Tool"
 						},
 						{
-							"Name": "My State Tool"
+							"Name": "MyTool"
 						}
 					]
 				}

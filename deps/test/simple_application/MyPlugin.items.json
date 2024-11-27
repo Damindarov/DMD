@@ -1,13 +1,13 @@
 {
   "Items": [
     {
-      "Name": "My Tool",
-      "Tooltip": "Simple button that shows Hello World message",
+      "Name": "My State Tool",
+      "Tooltip": "Simple dialog that shows Hello World message",
       "Icon": "\uE05D"
     },
     {
-      "Name": "My State Tool",
-      "Tooltip": "Simple dialog that shows Hello World message",
+      "Name": "My Tool",
+      "Tooltip": "Simple button that shows Hello World message",
       "Icon": "\uE05D"
     }
   ]

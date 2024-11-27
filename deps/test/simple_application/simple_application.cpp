@@ -19,6 +19,7 @@ int main( int argc, char** argv )
     viewerSetup.setupCommonPlugins( MR::Viewer::instance() );
     viewerSetup.setupSettingsManager( MR::Viewer::instance(), launchParams.name );
     viewerSetup.setupConfiguration( MR::Viewer::instance() );
+    viewerSetup.setupExtendedLibraries();
 
-    return MR::launchDefaultViewer( launchParams, viewerSetup );
+        return MR::launchDefaultViewer(launchParams, viewerSetup);
 }
