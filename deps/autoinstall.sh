@@ -29,12 +29,9 @@ echo "Package $(ls) downloaded. Installation started"
 
 sudo apt install ./*.deb -y
 
-echo "Package $(ls) installed. Test started"
+sudo sed -i 's|#include "MRUIStyle\.ipp"|//#include "MRUIStyle.ipp"|' /usr/local/include/MeshLib/MRViewer/MRUIStyle.h
 
-cd ../test/simple_application/
-sudo rm -rf build
-mkdir build && cd build
-cmake ..
-cmake --build .
-sudo cmake --install .
-./test
+echo "Package $(ls) installed."
+
+sudo chmod +x simple_application_autobuild.sh
+./simple_application_autobuild.sh
