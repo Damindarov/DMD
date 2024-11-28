@@ -3,6 +3,8 @@
 #include <MRViewer/MRSetupViewer.h>
 #include <MRViewer/MRViewer.h>
 
+//#include "Pipeline.h"
+
 int main( int argc, char** argv )
 {
     MR::setupLoggerByDefault();
@@ -11,7 +13,7 @@ int main( int argc, char** argv )
 
     MR::Viewer::LaunchParams launchParams{ .argc = argc, .argv = argv };
     MR::Viewer::parseLaunchParams( launchParams );
-    launchParams.name = "Your app name";
+    launchParams.name = "DMD application";
 
     MR::ViewerSetup viewerSetup;
     viewerSetup.setupBasePlugins( MR::Viewer::instance() );

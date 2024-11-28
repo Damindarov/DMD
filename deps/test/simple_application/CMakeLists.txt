@@ -16,7 +16,9 @@ set(TARGET1 example_plugin)
 
 set(SOURCES1 
 	MyPlugin.cpp			MyPlugin.hpp
-	mytool.cpp				mytool.hpp
+	holefiller.cpp			holefiller.hpp
+	local_icp.cpp 			local_icp.hpp
+	helper_functions.cpp	helper_functions.hpp
 	mystatetool.cpp 		mystatetool.hpp)
 
 file(GLOB UI_JSON "*.ui.json")

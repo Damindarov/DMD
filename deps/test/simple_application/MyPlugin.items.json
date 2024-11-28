@@ -6,8 +6,13 @@
       "Icon": "\uE05D"
     },
     {
-      "Name": "My Tool",
-      "Tooltip": "Simple button that shows Hello World message",
+      "Name": "Hole Filler",
+      "Tooltip": "Tool that fills holes in the model and rebuilds mesh",
+      "Icon": "\uE05D"
+    },
+    {
+      "Name": "Local ICP",
+      "Tooltip": "Tool that calculate difference between two models",
       "Icon": "\uE05D"
     }
   ]
