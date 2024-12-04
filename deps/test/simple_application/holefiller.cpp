@@ -12,14 +12,23 @@ bool HoleFiller::action()
 	//meshes.reserve(selected_objects_in_tree.size());// reserve space for all names
 	for(auto&& obj : selected_objects_in_tree)
 	{
-		auto mesh_opt = convertObjectToMesh(obj);
+
+		// showModal("object " + obj->name() + " type: " + obj->typeName(), MR::NotificationType::Info);
+		std::shared_ptr<MR::Object> obj_clone = obj->cloneTree();
+		std::optional<std::shared_ptr<MR::Mesh>> mesh_opt = convertObjectToMesh(obj_clone);
 		if(mesh_opt)
 		{
-			auto &&mesh_ptr = *mesh_opt;
-			fillAndRebuildMesh(*mesh_ptr);
-			std::static_pointer_cast<MR::ObjectMesh>(obj)->updateMesh(mesh_ptr);
-			MR::SceneRoot::getSharedPtr()->addChild(obj->clone());
+			std::shared_ptr<MR::Mesh> mesh_ptr = *mesh_opt;
+			//fillAndRebuildMesh(mesh);
+			std::shared_ptr<MR::ObjectMesh> rebuilt_mesh = std::make_shared<MR::ObjectMesh>(*mesh_ptr);
+			MR::SceneRoot::get().addChild(rebuilt_mesh->cloneTree());
+
+		// 	// auto &&mesh_ptr = *mesh_opt;
+		// 	// auto &mesh = *selectedHoleObject_->mesh();
 		}
+
+		// std::shared_ptr<MR::Object> obj_copy = obj->cloneTree();
+		// MR::SceneRoot::get().addChild(obj_copy);
 	}
 
 	// for (auto &&obj : selected_objects_in_tree)
@@ -32,7 +41,7 @@ bool HoleFiller::action()
 	// }
 
 	//loadMesh(selected_objects_in_tree);
-	showModal("Holes filled", MR::NotificationType::Info);
+	//showModal("Holes filled", MR::NotificationType::Info);
 	return false; // true will lead Viewer to keep this tool activated in ribbon
 }
 
