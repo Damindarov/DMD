@@ -17,6 +17,7 @@ bool HoleFiller::action()
 		fillAndRebuildMesh(*mesh);
 		if (auto visObj = obj_mesh->asType<VisualObject>())
 			visObj->setDirtyFlags(DIRTY_ALL);
+		obj_mesh->setName(obj_mesh->name() + "_holes_filled")
 		MR::SceneRoot::get().addChild(obj_mesh);
 	}
 
