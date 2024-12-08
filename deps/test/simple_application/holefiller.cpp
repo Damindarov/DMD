@@ -12,13 +12,16 @@ bool HoleFiller::action()
 
 	for (auto &&obj : selected_objects_in_tree)
 	{
-		std::shared_ptr<MR::ObjectMesh> obj_mesh = std::static_pointer_cast<MR::ObjectMesh>(obj->cloneTree());
-		std::shared_ptr<MR::Mesh> mesh = obj_mesh->varMesh();
-		fillAndRebuildMesh(*mesh);
-		if (auto visObj = obj_mesh->asType<VisualObject>())
-			visObj->setDirtyFlags(DIRTY_ALL);
-		obj_mesh->setName(obj_mesh->name() + "_holes_filled")
-		MR::SceneRoot::get().addChild(obj_mesh);
+		std::shared_ptr<MR::ObjectMesh> obj_mesh = std::dynamic_pointer_cast<MR::ObjectMesh>(obj->cloneTree());
+		if(obj_mesh)  // If object is really ObjectMesh castable
+		{
+			std::shared_ptr<MR::Mesh> mesh = obj_mesh->varMesh();
+			fillAndRebuildMesh(*mesh);
+			if (auto visObj = obj_mesh->asType<VisualObject>())
+				visObj->setDirtyFlags(DIRTY_ALL);
+			obj_mesh->setName(obj_mesh->name() + "_holes_filled");
+			MR::SceneRoot::get().addChild(obj_mesh);
+		}
 	}
 
 	//loadMesh(selected_objects_in_tree);
