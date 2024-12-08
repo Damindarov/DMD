@@ -31,7 +31,6 @@ namespace ExamplePlugin
 		void fillHoles(MR::Mesh &mesh);
 		MR::Expected<MR::Mesh> reBuild(MR::Mesh &mesh);
 		static bool onProgress(float v);
-		//void updateMeshes();
 	};
 
 	MR_REGISTER_RIBBON_ITEM(HoleFiller)
