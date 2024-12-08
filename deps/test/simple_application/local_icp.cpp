@@ -15,9 +15,10 @@ bool LocalICP::action()
 		showModal("Please select two objects", MR::NotificationType::Info);
 		return false;
 	}
-	if(auto obj_mesh_1 = selected_objects_in_tree[0]->asType<MR::ObjectMesh>())
+
+	if (auto obj_mesh_1 = dynamic_pointer_cast<MR::ObjectMesh>(selected_objects_in_tree[0]))
 	{
-		if(auto obj_mesh_2 = selected_objects_in_tree[1]->asType<MR::ObjectMesh>())
+		if (auto obj_mesh_2 = dynamic_pointer_cast<MR::ObjectMesh>(selected_objects_in_tree[1]->cloneTree()))
 		{
 			// getting non-const mesh pointers from selected objects
 			std::shared_ptr<MR::Mesh> mesh_1 = obj_mesh_1->varMesh();
@@ -29,6 +30,10 @@ bool LocalICP::action()
 			// both objects are ObjectMesh that are child of VisualObject class
 			obj_mesh_1->asType<VisualObject>()->setDirtyFlags(DIRTY_ALL);
 			obj_mesh_2->asType<VisualObject>()->setDirtyFlags(DIRTY_ALL);
+
+			obj_mesh_2->setName(obj_mesh_2->name() + "_icp_applied");
+
+			MR::SceneRoot::get().addChild(obj_mesh_2);
 		} // if(auto obj_mesh_2 = selected_objects_in_tree[1].asType<MR::ObjectMesh>())
 		else 
 		{
