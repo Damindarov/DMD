@@ -33,7 +33,7 @@ set(RESOURCE_DESTINATION ${MESHLIB_SHARE})
 add_library(${TARGET1} SHARED ${SOURCES1})
 
 #target_include_directories(${TARGET1} PUBLIC ${MESHLIB_INCLUDE_DIR} ${MESHLIB_THIRDPARTY_INCLUDE_DIR})
-target_link_libraries(${TARGET1} PRIVATE
+target_link_libraries(${TARGET1} PUBLIC
 	TBB::tbb
 	MeshLib::MRMesh
 	MeshLib::MRViewer
