@@ -22,8 +22,12 @@ namespace ExamplePlugin
 	{
 	public:
 		LocalICP();
+		
+		// \brief Called when the menu item is clicked
 		virtual bool action() override;
 	private:
+
+		// \brief Perform local ICP (finds diffeteces between two meshes)
 		void performLocalICP(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
 	};
 

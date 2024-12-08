@@ -15,26 +15,32 @@ bool LocalICP::action()
 		showModal("Please select two objects", MR::NotificationType::Info);
 		return false;
 	}
-	auto mesh_opt_1 = convertObjectToMesh(selected_objects_in_tree[0]);
-	if(mesh_opt_1)
+	if(auto obj_mesh_1 = selected_objects_in_tree[0]->asType<MR::ObjectMesh>())
+	{
+		if(auto obj_mesh_2 = selected_objects_in_tree[1]->asType<MR::ObjectMesh>())
+		{
+			// getting non-const mesh pointers from selected objects
+			std::shared_ptr<MR::Mesh> mesh_1 = obj_mesh_1->varMesh();
+			std::shared_ptr<MR::Mesh> mesh_2 = obj_mesh_2->varMesh();
+
+			performLocalICP(*mesh_1, *mesh_2);
+
+			//here we can skip type casting check because be already know that
+			// both objects are ObjectMesh that are child of VisualObject class
+			obj_mesh_1->asType<VisualObject>()->setDirtyFlags(DIRTY_ALL);
+			obj_mesh_2->asType<VisualObject>()->setDirtyFlags(DIRTY_ALL);
+		} // if(auto obj_mesh_2 = selected_objects_in_tree[1].asType<MR::ObjectMesh>())
+		else 
+		{
+			showModal("Second selected object have to be ObjectMesh", MR::NotificationType::Info);
+			return false;
+		}
+	} // if(auto obj_mesh_1 = selected_objects_in_tree[0].asType<MR::ObjectMesh>())
+	else
 	{
 		showModal("First selected object have to be ObjectMesh", MR::NotificationType::Info);
 		return false;
 	}
-
-	auto mesh_opt_2 = convertObjectToMesh(selected_objects_in_tree[1]);
-	if (mesh_opt_2)
-	{
-		showModal("Second selected object have to be ObjectMesh", MR::NotificationType::Info);
-		return false;
-	}
-	//meshes.reserve(selected_objects_in_tree.size());// reserve space for all names
-	
-	MR::Mesh mesh_1 = **mesh_opt_1;
-	MR::Mesh mesh_2 = **mesh_opt_2;
-
-	performLocalICP(mesh_1, mesh_2);
-	
 	return true; // true will lead Viewer to keep this tool activated in ribbon
 }
 
