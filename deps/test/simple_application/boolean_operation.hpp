@@ -1,5 +1,5 @@
-#ifndef BOOLEAN_OPERATION_HPP
-#define BOOLEAN_OPERATION_HPP
+#ifndef BOOL_OPERATION_HPP
+#define BOOL_OPERATION_HPP
 
 #include <MRViewer/MRRibbonMenuItem.h>
 #include <MRViewer/MRRibbonMenu.h>
@@ -19,19 +19,19 @@ namespace ExamplePlugin
 {
 	using namespace MR;
 
-	class BooleanOperation : public RibbonMenuItem
+	class BoolOperation : public RibbonMenuItem
 	{
 	public:
-		LocalICP();
+		BoolOperation();
 
 		// \brief Called when the menu item is clicked
 		virtual bool action() override;
 
 	private:
-		void performBooleanOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
+		MR::Mesh performBoolOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
 	};
 
-	MR_REGISTER_RIBBON_ITEM(BooleanOperation)
+	MR_REGISTER_RIBBON_ITEM(BoolOperation)
 };
 
 #endif

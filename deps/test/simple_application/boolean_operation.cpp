@@ -2,12 +2,12 @@
 
 using namespace ExamplePlugin;
 
-BooleanOperation::BooleanOperation()
+BoolOperation::BoolOperation()
 	: RibbonMenuItem("Boolean Operation")
 {
 }
 
-bool BooleanOperation::action()
+bool BoolOperation::action()
 {
 	auto selected_objects_in_tree = MR::getAllObjectsInTree<MR::Object>(&MR::SceneRoot::get(), MR::ObjectSelectivityType::Selected);
 
@@ -25,7 +25,7 @@ bool BooleanOperation::action()
 			std::shared_ptr<MR::Mesh> mesh_1 = obj_mesh_1->varMesh();
 			std::shared_ptr<MR::Mesh> mesh_2 = obj_mesh_2->varMesh();
 
-			//MR::Mesh result_mesh = performBooleanOperation(*mesh_1, *mesh_2);
+			MR::Mesh result_mesh = performBoolOperation(*mesh_1, *mesh_2);
 			std::shared_ptr<MR::ObjectMesh> result_obj_mesh = std::make_shared<MR::ObjectMesh>();
 			
 			// here we can skip type casting check because be already know that
@@ -54,7 +54,7 @@ bool BooleanOperation::action()
  * @param ideal_mesh Reference to the ideal mesh.
  * @param defect_mesh Reference to the defect mesh.
  */
-inline MR::Mesh BooleanOperation::performBooleanOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh)
+inline MR::Mesh BoolOperation::performBoolOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh)
 {
 	std::cout << "Performing boolean operation (DifferenceAB)..." << std::endl;
 	MR::BooleanResult result = MR::boolean(ideal_mesh, defect_mesh, MR::BooleanOperation::DifferenceAB);
