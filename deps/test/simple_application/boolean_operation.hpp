@@ -28,7 +28,7 @@ namespace ExamplePlugin
 		virtual bool action() override;
 
 	private:
-		MR::Mesh performBoolOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
+		//MR::Mesh performBoolOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
 	};
 
 	MR_REGISTER_RIBBON_ITEM(BoolOperation)

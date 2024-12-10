@@ -25,9 +25,18 @@ bool BoolOperation::action()
 			std::shared_ptr<MR::Mesh> mesh_1 = obj_mesh_1->varMesh();
 			std::shared_ptr<MR::Mesh> mesh_2 = obj_mesh_2->varMesh();
 
-			MR::Mesh result_mesh = performBoolOperation(*mesh_1, *mesh_2);
+			MR::BooleanResult result = MR::boolean(*mesh_1, *mesh_2, MR::BooleanOperation::DifferenceAB);
+			if (!result.valid())
+			{
+				std::cerr << result.errorString << std::endl;
+				return false;
+			}
+
 			std::shared_ptr<MR::ObjectMesh> result_obj_mesh = std::make_shared<MR::ObjectMesh>();
+			std::shared_ptr<MR::Mesh> result_mesh = std::make_shared<MR::Mesh>(std::move(*result));
+			result_obj_mesh->setMesh(result_mesh);
 			
+			result_obj_mesh->setName("boolean_operation_result");
 			// here we can skip type casting check because be already know that
 			//  both objects are ObjectMesh that are child of VisualObject class
 			result_obj_mesh->asType<VisualObject>()->setDirtyFlags(DIRTY_ALL);
@@ -54,15 +63,15 @@ bool BoolOperation::action()
  * @param ideal_mesh Reference to the ideal mesh.
  * @param defect_mesh Reference to the defect mesh.
  */
-inline MR::Mesh BoolOperation::performBoolOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh)
-{
-	std::cout << "Performing boolean operation (DifferenceAB)..." << std::endl;
-	MR::BooleanResult result = MR::boolean(ideal_mesh, defect_mesh, MR::BooleanOperation::DifferenceAB);
-	if (!result.valid())
-	{
-		std::cerr << result.errorString << std::endl;
-		return MR::Mesh();
-	}
-	// save result to STL file
-	return *result;
-}
+// inline std::shared_ptr<MR::Mesh> BoolOperation::performBoolOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh)
+// {
+// 	std::cout << "Performing boolean operation (DifferenceAB)..." << std::endl;
+// 	MR::BooleanResult result = MR::boolean(ideal_mesh, defect_mesh, MR::BooleanOperation::DifferenceAB);
+// 	if (!result.valid())
+// 	{
+// 		std::cerr << result.errorString << std::endl;
+// 		return std::shared_ptr<MR::Mesh>(std::nullptr_t);
+// 	}
+// 	// save result to STL file
+// 	return *result;
+// }
