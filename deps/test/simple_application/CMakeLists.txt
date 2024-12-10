@@ -18,6 +18,7 @@ set(SOURCES1
 	MyPlugin.cpp			MyPlugin.hpp
 	holefiller.cpp			holefiller.hpp
 	local_icp.cpp 			local_icp.hpp
+	boolean_operation.cpp	boolean_operation.hpp
 	helper_functions.cpp	helper_functions.hpp
 	mystatetool.cpp 		mystatetool.hpp)
 
