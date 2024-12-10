@@ -17,6 +17,9 @@
 						},
 						{
 							"Name": "Local ICP"
+						},
+						{
+							"Name": "Boolean Operation"
 						}
 					]
 				}

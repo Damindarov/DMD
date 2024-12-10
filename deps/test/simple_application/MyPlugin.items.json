@@ -12,6 +12,11 @@
     },
     {
       "Name": "Local ICP",
+      "Tooltip": "Tool that aligns two models",
+      "Icon": "\uE05D"
+    },
+    {
+      "Name": "Boolean Operation",
       "Tooltip": "Tool that calculate difference between two models",
       "Icon": "\uE05D"
     }
