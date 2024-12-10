@@ -1,4 +1,4 @@
-#include "local_icp.hpp"
+#include "boolean_operation.hpp"
 
 using namespace ExamplePlugin;
 
@@ -25,8 +25,8 @@ bool BooleanOperation::action()
 			std::shared_ptr<MR::Mesh> mesh_1 = obj_mesh_1->varMesh();
 			std::shared_ptr<MR::Mesh> mesh_2 = obj_mesh_2->varMesh();
 
-			MR::Mesh result_mesh = performBooleanOperation(*mesh_1, *mesh_2);
-			std::shared_ptr<MR::ObjectMesh> result_obj_mesh = std::make_shared<MR::ObjectMesh>(result_mesh);
+			//MR::Mesh result_mesh = performBooleanOperation(*mesh_1, *mesh_2);
+			std::shared_ptr<MR::ObjectMesh> result_obj_mesh = std::make_shared<MR::ObjectMesh>();
 			
 			// here we can skip type casting check because be already know that
 			//  both objects are ObjectMesh that are child of VisualObject class
@@ -61,7 +61,7 @@ inline MR::Mesh BooleanOperation::performBooleanOperation(MR::Mesh &ideal_mesh, 
 	if (!result.valid())
 	{
 		std::cerr << result.errorString << std::endl;
-		return;
+		return MR::Mesh();
 	}
 	// save result to STL file
 	return *result;

@@ -1,11 +1,12 @@
-#ifndef LOCAL_ICP_HPP
-#define LOCAL_ICP_HPP
+#ifndef BOOLEAN_OPERATION_HPP
+#define BOOLEAN_OPERATION_HPP
 
 #include <MRViewer/MRRibbonMenuItem.h>
 #include <MRViewer/MRRibbonMenu.h>
 #include <MRViewer/MRUIStyle.h>
 #include <MRViewer/MRRibbonSchema.h>
 
+#include <MRMesh/MRMeshBoolean.h>
 #include <MRViewer/MRSceneCache.h>
 #include <MRMesh/MRMesh.h>
 #include <MRMesh/MRICP.h>
