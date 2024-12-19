@@ -50,6 +50,9 @@ namespace DMD
         auto ideal_mesh = loadMesh(ideal_mesh_path);
         auto defect_mesh = loadMesh(defect_mesh_path);
 
+        MR::Mesh bool_mesh;
+        MR::Mesh filtered_mesh;
+
         // apply our pipeline to these meshes
         if (ideal_mesh && defect_mesh)
         {
@@ -62,9 +65,9 @@ namespace DMD
             MR::MeshSave::toAnySupportedFormat(*ideal_mesh, "../meshes/fillHoles_reBuild_ideal_mesh.stl");
             MR::MeshSave::toAnySupportedFormat(*defect_mesh, "../meshes/fillHoles_reBuild_defect_icp_mesh.stl");
 
-            performBooleanOperation(*ideal_mesh, *defect_mesh);
+            performBooleanOperation(*ideal_mesh, *defect_mesh, *bool_mesh);
 
-            
+            filtered_mesh = chop(bool_mesh);
 
             return 0;
         }
@@ -175,7 +178,7 @@ namespace DMD
      * @param ideal_mesh Reference to the ideal mesh.
      * @param defect_mesh Reference to the defect mesh.
      */
-    void Pipeline::performBooleanOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh)
+    void Pipeline::performBooleanOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh, MR::Mesh &output_mesh)
     {
         std::cout << "Performing boolean operation (DifferenceAB)..." << std::endl;
         MR::BooleanResult result = MR::boolean(ideal_mesh, defect_mesh, MR::BooleanOperation::DifferenceAB);
@@ -187,6 +190,8 @@ namespace DMD
         // save result to STL file
         MR::Mesh resultMesh = *result;
         saveMesh(resultMesh, "../meshes/out_boolean.stl");
+
+        output_mesh = resultMesh.copy();
     }
 
     /**

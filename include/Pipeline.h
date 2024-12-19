@@ -50,9 +50,9 @@ namespace DMD
         void fillHoles(MR::Mesh &mesh);
         MR::Expected<MR::Mesh> reBuild(MR::Mesh &mesh);
         void performLocalICP(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
-        void performBooleanOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh);
+        void performBooleanOperation(MR::Mesh &ideal_mesh, MR::Mesh &defect_mesh, MR::Mesh &output_mesh);
         MR::Mesh chop(MR::Mesh mesh, MR::Mesh chop_area);
-        
+
         void saveMesh(const MR::Mesh &result, const std::string &path);
         static bool onProgress(float v);
     };
