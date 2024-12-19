@@ -64,6 +64,8 @@ namespace DMD
 
             performBooleanOperation(*ideal_mesh, *defect_mesh);
 
+            
+
             return 0;
         }
         else
@@ -185,6 +187,37 @@ namespace DMD
         // save result to STL file
         MR::Mesh resultMesh = *result;
         saveMesh(resultMesh, "../meshes/out_boolean.stl");
+    }
+
+    /**
+     * @brief Performs filtering out all unnecessary geometry outside of the working area.
+     *
+     * @param mesh The mesh to be filtered.
+     * @param chop_area The working area. Default area is a cube, suitable for "cylinder matrix" default stl.
+     */
+    MR::Mesh Pipeline::chop(MR::Mesh mesh, MR::Mesh chop_area) {
+
+        MR::Mesh result = MR::boolean(chop_area, mesh, MR::BooleanOperation::Intersection).mesh;
+
+        return result;
+    }
+
+    MR::Mesh Pipeline::chop(MR::Mesh mesh) {
+        MR::Vector3f size = {45.0f, 45.0f, 45.0f};
+        MR::Vector3f angles = {55.5f/180*MR::PI, -18.0f/180*MR::PI, -19.6f/180*MR::PI};
+        MR::Vector3f position = {-7.0f, 30.0f, -65.0f};
+
+        MR::Mesh chop_area = MR::makeCube(size);
+
+        auto M = MR::AffineXf3f::linear(MR::Matrix3f::rotationFromEuler(angles));
+        chop_area.transform(M);
+
+        M = MR::AffineXf3f::translation(position);
+        chop_area.transform(M);
+
+        MR::MeshSave::toAnySupportedFormat(chop_area, "chop_area.stl" );
+
+        return chop(mesh, chop_area);
     }
 
     /**
